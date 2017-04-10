@@ -13,9 +13,9 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	setlocale(LC_ALL, "Russian");
 
+	// массив книг
 	Book *spis;
 	int n;
-
 
 	cout << "¬ведите количество книг: ";
 	cin >> n; cout << endl << endl;
@@ -37,7 +37,9 @@ int _tmain(int argc, _TCHAR* argv[])
 		cout << "=================================" << endl << endl;
 	}
 
-	showAuthor(spis, n);
+	//showAuthor(spis, n);
+	//showNameGroup(spis, n);
+	//showYear(spis, n);
 
 	system("pause");
 	return 0;
