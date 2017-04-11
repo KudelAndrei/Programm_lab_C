@@ -1,17 +1,21 @@
-﻿Build started 07.04.2017 17:07:09.
+﻿Build started 11.04.2017 15:57:49.
      1>Project "E:\Не рабочая папка\Programm_lab_C-\летняя сессия 2017\books\books\books.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\books.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Book.cpp books.cpp
-         books.cpp
-         Book.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\books.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt books.cpp fun.cpp
+         fun.cpp
          Generating Code...
+         Skipping... (no relevant changes detected)
+         books.cpp
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\Не рабочая папка\Programm_lab_C-\летняя сессия 2017\books\Debug\books.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:\Не рабочая папка\Programm_lab_C-\летняя сессия 2017\books\Debug\books.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\Не рабочая папка\Programm_lab_C-\летняя сессия 2017\books\Debug\books.lib" /MACHINE:X86 Debug\Book.obj
          Debug\books.obj
+         Debug\fun.obj
          Debug\stdafx.obj
-         books.vcxproj -> E:\Не рабочая папка\Programm_lab_C-\летняя сессия 2017\books\Debug\books.exe
-     1>Done Building Project "E:\Не рабочая папка\Programm_lab_C-\летняя сессия 2017\books\books\books.vcxproj" (Build target(s)).
+     1>books.obj : error LNK2005: "void __cdecl showAuthor(class Book * const,int)" (?showAuthor@@YAXQAVBook@@H@Z) already defined in Book.obj
+     1>fun.obj : error LNK2005: "void __cdecl showAuthor(class Book * const,int)" (?showAuthor@@YAXQAVBook@@H@Z) already defined in Book.obj
+     1>E:\Не рабочая папка\Programm_lab_C-\летняя сессия 2017\books\Debug\books.exe : fatal error LNK1169: one or more multiply defined symbols found
+     1>Done Building Project "E:\Не рабочая папка\Programm_lab_C-\летняя сессия 2017\books\books\books.vcxproj" (Build target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:01.71
+Time Elapsed 00:00:00.67

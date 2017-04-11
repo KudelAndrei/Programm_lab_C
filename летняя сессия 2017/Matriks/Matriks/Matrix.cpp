@@ -30,8 +30,8 @@ void Matrix::show(int N){
 	}
 
 	 //удаление двумерного динамического массива
-	 for (int i = 0; i < N; i++)
-		delete[]matr[i];
+	/* for (int i = 0; i < N; i++)
+		delete[]matr[i];*/
 
 }
 
@@ -43,7 +43,7 @@ void Matrix::set(int N){
 	// заполнение массива
 	for (int count_row = 0; count_row < N; count_row++)
 		for (int count_column = 0; count_column < N; count_column++)
-			matr[count_row][count_column] = (rand() % 10 + 1) / int((rand() % 10 + 1)); //заполнение массива случайными числами с масштабированием от 1 до 10
+			matr[count_row][count_column] = (rand() % 10 + 1) / (int)((rand() % 10 + 1)); //заполнение массива случайными числами с масштабированием от 1 до 10
 }
 
 void Matrix::norma(int  N){
@@ -61,16 +61,15 @@ void Matrix::norma(int  N){
 		if (temp > norm_m)
 			norm_m = temp;
 	}
-	cout << "Норма: " << norm_m << endl;
+	cout << "Евклидова Норма: " << norm_m << endl;
 
 
-	for (int count_row = 0; count_row < N; count_row++)
+	/*for (int count_row = 0; count_row < N; count_row++)
 	{
 		for (int count_column = 0; count_column < N; count_column++)
 			norm += sqrt(pow(matr[count_row][count_column], 2));
 		cout << endl;
 	}
-	cout << "Евклидова норма: " << (int)norm << endl;
-
+	cout << "Евклидова норма: " << (int)norm << endl;*/
 
 }
