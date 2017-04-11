@@ -50,5 +50,5 @@ void Book::set(){
 }
 
 void Book::showBook(){
-	cout << "Название книги: " << nameBook << endl;
+	cout << "::Название книги:: " << nameBook << endl;
 }

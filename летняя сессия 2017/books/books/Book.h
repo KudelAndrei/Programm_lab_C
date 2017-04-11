@@ -23,25 +23,6 @@ public:
 	void show();
 	void set();
 	void showBook();
-	//void showAuthor(Book spis[], int n);    // список книг заданного автора
-	//void showNameGroup(Book spis[], int n); // список книг, выпущенных данным издательством
-	//void showYear(Book spis[], int n);      // список книг, выпущенных после заданного года
-
 };
 
-void showAuthor(Book spis[], int n){
-	string author;
-	cout << "Введите автора: ";
-	cin >> author; cout << endl << endl;
-
-	cout << "=================================" << endl;
-	cout << "Список книг " << author << ":" << endl;
-	cout << "=================================" << endl;
-	for (int i = 0; i < n; i++){
-		if (spis[i].get_fio() == author){
-			spis[i].showBook();
-			cout << "Работает";
-		}
-	}
-}
 
