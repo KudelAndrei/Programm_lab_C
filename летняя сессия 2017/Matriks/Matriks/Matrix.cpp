@@ -1,75 +1,209 @@
 #include "stdafx.h"
 #include "Matrix.h"
 #include <iostream>
-#include <ctime>
-#include <cmath>
+#include "Array.h"
 #include <iomanip>
 
 using namespace std;
 
-Matrix::Matrix()
+Matrix::Matrix() // конструктор по умолчанию
 {
+	size = 10; // по умолчанию размер матрицы = 10 объектам типа Array
+	ptr = new Array[size]; // выделить место в памяти для матрицы
+	for (int ix = 0; ix < size; ix++) // обнуляем матрицу
+	for (int jx = 0; jx < 10; jx++)
+		ptr[ix][jx] = 0;
 }
 
-Matrix::Matrix(const Matrix &obj)
+Matrix::Matrix(int matrixSize, int arraySize) // конструктор с параметрами
 {
+	size = (matrixSize > 0 ? matrixSize : 10); // количество строк
+
+	ptr = new Array[size]; // выделить место в памяти для матрицы
+
+	for (int ix = 0; ix < size; ix++) // перераспределяем выделенную память
+		ptr[ix].setSize(arraySize > 0 ? arraySize : 10); // количество столбцов
+
+	for (int ix = 0; ix < size; ix++) // обнуляем матрицу
+	for (int jx = 0; jx < ptr->getSize(); jx++)
+		ptr[ix][jx] = 0;
 }
 
-
-Matrix::~Matrix()
+Matrix::Matrix(Matrix &matrixToCopy) // конструктор копии
+:size(matrixToCopy.size)              // инициализатор размера массива
 {
+	ptr = new Array[size]; // выделить место в памяти для матрицы
+
+	for (int ix = 0; ix < size; ix++) // перераспределяем выделенную память
+		ptr[ix].setSize(size); // количество столбцов
+
+	for (int ix = 0; ix < size; ix++)
+	for (int jx = 0; jx < ptr->getSize(); jx++)
+		ptr[ix][jx] = matrixToCopy[ix][jx];// заполняем матрицу значениями матрицы matrixToCopy
 }
 
-void Matrix::show(int N){
+Matrix::~Matrix() // десструктор класса Matrix
+{
+	delete[] ptr; // освободить память, удалив матрицу
+}
 
-	for (int count_row = 0; count_row < N; count_row++)
+int Matrix::getSize() const // возвратить количество элементов матрицы
+{
+	return size;
+}
+
+Array *Matrix::getPtr() const
+{
+	return ptr;
+}
+
+// перегруженный оператор вывода для класса Array (вывод элементов массива на экран)
+ostream &operator<< (ostream &output, const Matrix &obj)
+{
+	for (int ix = 0; ix < obj.size; ix++)
 	{
-		for (int count_column = 0; count_column < N; count_column++)
-			cout << setw(4) << setprecision(N) << matr[count_row][count_column] << "   ";
-		cout << endl;
+		for (int jx = 0; jx < obj.ptr->getSize(); jx++)
+		{
+			output << setw(5) // под каждое число выделяется 5 позиций
+				<< obj.ptr[ix][jx];
+		}
+		cout << std::endl;
 	}
 
-	 //удаление двумерного динамического массива
-	/* for (int i = 0; i < N; i++)
-		delete[]matr[i];*/
+	output << std::endl; // перенос маркера на новую строку
 
+	return output; // позволяет множественный вывод, типа cout << x << y << z << ...
 }
 
-void Matrix::set(int N){
-	 
-	for (int i = 0; i < N; i++) // и на N столбцов
-		matr[i] = new int[N];
+// перегруженный оператор ввода, для заполнения матрицы с клавиатуры
+istream &operator>> (istream & input, Matrix &obj)
+{
+	for (int ix = 0; ix < obj.size; ix++)
+	for (int jx = 0; jx < obj.ptr->getSize(); jx++)
+		input >> obj.ptr[ix][jx]; // заполняем матрицу
 
-	// заполнение массива
-	for (int count_row = 0; count_row < N; count_row++)
-		for (int count_column = 0; count_column < N; count_column++)
-			matr[count_row][count_column] = (rand() % 10 + 1) / (int)((rand() % 10 + 1)); //заполнение массива случайными числами с масштабированием от 1 до 10
+	return input; // позволяет множественный ввод, типа cin >> x >> y >> z >> ...
 }
 
-void Matrix::norma(int  N){
-
-	int max_row = 0;
-	int max_colum = 0;
-	float norm = 0;
-	int norm_m = 0;
-
-	for (int count_row = 0; count_row < N; count_row++)
+// перегруженный оператор взятия индекса
+Array &Matrix::operator[] (int subscript)
+{
+	if (subscript < 0 || subscript >= size)
 	{
-		int temp = 0;	
-		for (int count_column = 0; count_column < N; count_column++)
-			temp += (int)fabs((float)matr[count_row][count_column]);
-		if (temp > norm_m)
-			norm_m = temp;
+		std::cerr << "\n Ошибка индекса: " << subscript << std::endl;
+		exit(1); // завершить работу программы, неправильный индекс
 	}
-	cout << "Евклидова Норма: " << norm_m << endl;
+	return ptr[subscript]; // возврат ссылки на элемент массива
+}
 
+void Matrix::setMatrix() // заполнение массива
+{
+	for (int ix = 0; ix < size; ix++)
+	for (int jx = 0; jx < ptr->getSize(); jx++)
+		cin >> ptr[ix][jx]; // ввод элементов матрицы с клавиатуры
+}
 
-	/*for (int count_row = 0; count_row < N; count_row++)
+void Matrix::getMatrix() // вывод массива
+{
+	for (int ix = 0; ix < size; ix++)
 	{
-		for (int count_column = 0; count_column < N; count_column++)
-			norm += sqrt(pow(matr[count_row][count_column], 2));
-		cout << endl;
+		for (int jx = 0; jx < ptr->getSize(); jx++)
+			cout << setw(5) << ptr[ix][jx]; // вывод элементов матрицы на экран
+		cout << std::endl;
 	}
-	cout << "Евклидова норма: " << (int)norm << endl;*/
 
+	cout << std::endl; // новая строка
+}
+
+int *Matrix::search(const int key) const // поиск по ключу
+{
+	for (int ix = 0; ix < size; ix++)
+	for (int jx = 0; jx < ptr->getSize(); jx++)
+	if (key == ptr[ix][jx]) // поиск по ключу
+		return (&ptr[ix][jx]);             // позиция искомого элемента
+
+	return NULL;
+}
+
+Matrix Matrix::operator + (const Matrix &right)
+{
+	if (size != right.size || ptr->getSize() != right.getPtr()->getSize())
+	{
+		cout << "Массивы разного размера!\n";
+		exit(1); // завершить работу программы
+	}
+
+	Matrix result(size, ptr->getSize());
+	for (int ix = 0; ix < size; ix++)
+	for (int jx = 0; jx < ptr->getSize(); jx++)
+		result.ptr[ix][jx] = ptr[ix][jx] + right.ptr[ix][jx];
+
+	return result; // вернуть сумму
+}
+
+Matrix Matrix::operator += (const Matrix &right)
+{
+	if (size != right.size || ptr->getSize() != right.getPtr()->getSize())
+	{
+		cout << "Массивы разного размера!\n";
+		exit(1); // завершить работу программы
+	}
+
+	//    Matrix result(size, ptr->getSize());
+	for (int ix = 0; ix < size; ix++)
+	for (int jx = 0; jx < ptr->getSize(); jx++)
+		ptr[ix][jx] = ptr[ix][jx] + right.ptr[ix][jx];
+
+	return *this; // вернуть сумму
+}
+
+Matrix Matrix::operator - (const Matrix &right)
+{
+	if (size != right.size || ptr->getSize() != right.getPtr()->getSize())
+	{
+		cout << "Массивы разного размера!\n";
+		exit(1); // завершить работу программы
+	}
+
+	Matrix result(size, ptr->getSize());
+	for (int ix = 0; ix < size; ix++)
+	for (int jx = 0; jx < ptr->getSize(); jx++)
+		result.ptr[ix][jx] = ptr[ix][jx] - right.ptr[ix][jx];
+
+	return result; // вернуть сумму
+}
+
+const Matrix &Matrix::operator = (const Matrix &right) // оператор присваивания
+{
+	if (&right != this) // чтобы не выполнялось самоприсваивание
+	{
+		if (size != right.size || ptr->getSize() != right.getPtr()->getSize())
+		{
+			delete[] ptr; // освободить пространство
+			size = right.size; // установить нужный размер матрицы
+			ptr = new Array[size]; // выделить память под копируемый массив
+
+			for (int ix = 0; ix < size; ix++) // перераспределяем выделенную память
+				ptr[ix].setSize(right.getPtr()->getSize()); // количество столбцов
+		}
+
+		for (int ix = 0; ix < size; ix++)
+		for (int jx = 0; jx < ptr->getSize(); jx++)
+			ptr[ix][jx] = right.ptr[ix][jx]; // скопировать массив
+	}
+
+	return *this; // разрешает множественное присваивание, например x = t = e
+}
+
+bool Matrix::operator == (const Matrix &right) const// оператор сравнения
+{
+	if (size != right.size || ptr->getSize() != right.getPtr()->getSize())
+		return false; // матрицы с разным количеством элементов
+
+	for (int ix = 0; ix < size; ix++)
+	for (int jx = 0; jx < ptr->getSize(); jx++)
+	if (ptr[ix][jx] != right.ptr[ix][jx])
+		return false; // матрицы не равны
+
+	return true; // матрицы равны
 }
