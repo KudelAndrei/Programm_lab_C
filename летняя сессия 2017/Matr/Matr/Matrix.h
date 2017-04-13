@@ -15,6 +15,9 @@ public:
 	int getSize() const; // возвратить количество элементов матрицы
 
 	Matrix operator+ (const Matrix &right); // перегруженая операция сложения
+	Matrix operator- (const Matrix &right); // перегруженая операция вычитания
+	Matrix operator* (const Matrix &right); // перегрузка операции увеличения
+	Matrix operator= (const Matrix &right); // перегрузка операции присваивания
 
 };
 

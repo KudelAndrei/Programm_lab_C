@@ -87,7 +87,7 @@ void Matrix::showMatrix(int size){
 
 }
 
-Matrix Matrix::operator + (const Matrix &right)
+Matrix Matrix::operator+ (const Matrix &right)
 {
 
 	Matrix result(size);
@@ -96,5 +96,48 @@ Matrix Matrix::operator + (const Matrix &right)
 			result.atr[i][j] = atr[i][j] + right.atr[i][j];
 	}
 
-	return result; // вернуть сумму
+	return result;
+
 }
+
+Matrix Matrix::operator- (const Matrix &right)
+{
+
+	Matrix result(size);
+	for (int i = 0; i < size; i++){
+		for (int j = 0; j < size; j++)
+			result.atr[i][j] = atr[i][j] - right.atr[i][j];
+	}
+
+	return result;
+
+}
+
+Matrix Matrix::operator* (const Matrix &right)
+{
+
+	for (int i = 0; i < size; i++){
+		for (int j = 0; j < size; j++)
+			atr[i][j] = atr[i][j] * right.atr[i][j];
+	}
+
+	return *this;
+}
+
+Matrix Matrix::operator= (const Matrix &right)
+{
+	if (&right != this) // чтобы не выполнялось самоприсваивание
+	{
+		for (int i = 0; i < size; i++){
+			for (int j = 0; j < size; j++)
+				atr[i][j] = right.atr[i][j];
+		}
+	}
+
+	return *this;
+
+}
+
+
+
+

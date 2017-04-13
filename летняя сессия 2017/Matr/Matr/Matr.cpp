@@ -25,8 +25,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	matrix.showMatrix(size);
 	matrix2.showMatrix(size);
 
-	matrix + matrix2;
-
 
 	system("pause");
 	return 0;
