@@ -11,12 +11,13 @@ public:
 	~Matrix();
 
 	void setMatrix(int size); // рандомная установка значений матрицы
-	void showMatrix(int size); // вывод матрицы
+	void showMatrix(); // вывод матрицы
 	int getSize() const; // возвратить количество элементов матрицы
+	Matrix Transpose();
 
 	Matrix operator+ (const Matrix &right); // перегруженая операция сложения
 	Matrix operator- (const Matrix &right); // перегруженая операция вычитания
-	Matrix operator* (const Matrix &right); // перегрузка операции увеличения
+	Matrix operator*( const Matrix &right); // перегрузка операции увеличения
 	Matrix operator= (const Matrix &right); // перегрузка операции присваивания
 
 };

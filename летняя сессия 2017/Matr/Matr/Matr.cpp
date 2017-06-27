@@ -13,18 +13,19 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	setlocale(LC_ALL, "Russian");
 
-	Matrix matrix, matrix2, matrix3;
+	Matrix matrix3;
 	int size;
 
 	cout << "Введите размер квадратной матрицы: "; 
 	cin >> size; 
 	cout << endl;
+	Matrix* matrix = new Matrix(size);
+	Matrix* matrix2 = new Matrix(size);
+	matrix->setMatrix(size);
+	matrix2->setMatrix(size);
 
-	matrix.setMatrix(size);
-	matrix2.setMatrix(size);
-
-	matrix.showMatrix(size);
-	matrix2.showMatrix(size);
+	matrix->showMatrix();
+	matrix2->showMatrix();
 
 	cout << endl;
 
@@ -49,7 +50,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	cout << "Массив матриц до: " << endl;
 	for (int i = 0; i < n; i++){
-		array[i].showMatrix(_size);
+		array[i].showMatrix();
 	}
 
 	qrt(array, _size);
@@ -68,9 +69,9 @@ void qrt(Matrix arr[], int n){
 	cout << "Матриц" << endl;
 	for (int i = 0; i < n; i++){
 		if (i == j){
-			(arr[i] * arr[i]).showMatrix(n);
+			(arr[i] * arr[i]).showMatrix();
 		}
-		else arr[i].showMatrix(n);
+		else arr[i].showMatrix();
 		cout << endl;
 	}
 };
